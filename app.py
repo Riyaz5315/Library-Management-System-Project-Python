@@ -628,6 +628,5 @@ def remove_lost_book(book_id):
 
     
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 4000))
-    app.run(debug=True, port=port)
+    app.run(debug=True,)
     os.execv(__file__, sys.argv)
