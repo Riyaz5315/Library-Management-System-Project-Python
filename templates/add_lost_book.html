@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  <link rel="shortcut icon" type="x-icon" href="/static/images/libraryicon.png">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style/bootstrap.min.css') }}">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style/styles.css') }}">
+
+</head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .message {
+            color: green;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .card {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-xxl position-relative bg-white d-flex p-0">
+		<!-- Spinner Start -->
+		<div id="spinner"
+			class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+			<div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+				<span class="sr-only">Loading...</span>
+			</div>
+		</div>
+	</div>
+	<!-- Spinner End -->
+
+
+	<!-- Sidebar Start -->
+	<div class="sidebar pe-4 pb-3">
+		<nav class="navbar bg-light navbar-light">
+			<a href="" class="navbar-brand mx-4 mb-3"><br><br>
+				<h4 class="text-primary">Library<br>Management<br>System</h4>
+			</a>
+			<div class="d-flex align-items-center ms-4 mb-4">
+				<div class="position-relative">
+					<img class="rounded-circle" src="/static/images/user_icon.png" alt="" style="width: 40px; height: 40px;">
+					<div
+						class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+					</div>
+				</div>
+			</div>
+			<div class="navbar-nav w-100">
+				<a href="dashboard" class="nav-item nav-link active"><i
+						class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+				<div class="nav-item dropdown">
+					<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+							class="fa fa-laptop me-2"></i>Books</a>
+					<div class="dropdown-menu bg-transparent border-0">
+						<a href="{{ url_for('books')}}" class="dropdown-item">Manage Books</a>
+						<a href="{{ url_for('category')}}" class="dropdown-item">Category</a>
+						<a href="{{ url_for('author')}}" class="dropdown-item">Author</a>
+						<a href="{{ url_for('publisher')}}" class="dropdown-item">Publisher</a>
+						<a href="{{ url_for('rack')}}" class="dropdown-item">Rack</a>
+                        <a href="{{ url_for('lost_books')}}" class="dropdown-item">lost books</a>
+                        <a href="{{ url_for('add_lost_book')}}" class="dropdown-item">add lost books</a>
+					</div>
+				</div>
+				<a href="{{ url_for('list_issue_book')}}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Issue
+					Books</a>
+				<a href="{{ url_for('users')}}" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>User</a>
+
+				<div class="nav-item dropdown">
+					<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+							class="far fa-file-alt me-2"></i>Others</a>
+					<div class="dropdown-menu bg-transparent border-0">
+
+						<a href="404.html" class="dropdown-item">404 Error</a>
+						<a href="blank.html" class="dropdown-item">Blank Page</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</div>
+    
+	<!-- Sidebar End -->
+
+
+	<!-- Content Start -->
+	<div class="content">
+		<!-- Navbar Start -->
+		<nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+			<a href="#" class="sidebar-toggler flex-shrink-0">
+				<i class="fa fa-bars"></i>
+			</a>
+			<form class="d-none d-md-flex ms-4">
+				<input class="form-control border-0" type="search" placeholder="Search">
+			</form>
+			<div class="navbar-nav align-items-center ms-auto">
+				<div class="nav-item dropdown">
+					<div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+						<a href="#" class="dropdown-item">
+							<div class="d-flex align-items-center">
+								<img class="rounded-circle" src="img/.jpg" alt="" style="width: 40px; height: 40px;">
+								<div class="ms-2">
+									<h6 class="fw-normal mb-0">Jhon send you a message</h6>
+									<small>15 minutes ago</small>
+								</div>
+							</div>
+						</a>
+						<hr class="dropdown-divider">
+						<a href="#" class="dropdown-item">
+							<div class="d-flex align-items-center">
+								<img class="rounded-circle" src="img/.jpg" alt="" style="width: 40px; height: 40px;">
+								<div class="ms-2">
+									<h6 class="fw-normal mb-0">Jhon send you a message</h6>
+									<small>15 minutes ago</small>
+								</div>
+							</div>
+						</a>
+						<hr class="dropdown-divider">
+						<a href="#" class="dropdown-item">
+							<div class="d-flex align-items-center">
+								<img class="rounded-circle" src="img/.jpg" alt="" style="width: 40px; height: 40px;">
+								<div class="ms-2">
+									<h6 class="fw-normal mb-0">Jhon send you a message</h6>
+									<small>15 minutes ago</small>
+								</div>
+							</div>
+						</a>
+						<hr class="dropdown-divider">
+						<a href="#" class="dropdown-item text-center">See all message</a>
+					</div>
+				</div>
+				<div class="nav-item dropdown">
+					<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+						<i class="fa fa-bell me-lg-2"></i>
+						<span class="d-none d-lg-inline-flex">Notificatin</span>
+					</a>
+					<div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+						<a href="#" class="dropdown-item">
+							<h6 class="fw-normal mb-0">Profile updated</h6>
+							<small>15 minutes ago</small>
+						</a>
+						<hr class="dropdown-divider">
+						<a href="#" class="dropdown-item">
+							<h6 class="fw-normal mb-0">New user added</h6>
+							<small>15 minutes ago</small>
+						</a>
+						<hr class="dropdown-divider">
+						<a href="#" class="dropdown-item">
+							<h6 class="fw-normal mb-0">Password changed</h6>
+							<small>15 minutes ago</small>
+						</a>
+						<hr class="dropdown-divider">
+						<a href="#" class="dropdown-item text-center">See all notifications</a>
+					</div>
+				</div>
+				<div class="nav-item dropdown">
+					<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+						<img class="rounded-circle me-lg-2" src="/static/images/user_icon.png" alt=""
+							style="width: 40px; height: 40px;">
+						<span class="d-none d-lg-inline-flex"></span>
+					</a>
+					<div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+						<ul class="navbar-nav ml-auto">
+							{% if session['userid'] %}
+							<li class="nav-item">
+								<a class="nav-link" href="#">{{session.name}} </a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href=""> </a>
+							</li>
+							{% else %}
+							<li class="nav-item">
+								<a class="nav-link" href=""></a>
+							</li>
+							{% endif %}
+						</ul>
+						<a href="{{ url_for('logout')}}" class="dropdown-item">Log Out</a>
+					</div>
+				</div>
+			</div>
+		</nav><br>
+		<!-- Navbar End -->
+
+
+
+    <h2>Add Lost Book</h2>
+    <!-- Display flash message if exists -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="message">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+	<form action="{{ url_for('add_lost_book') }}" method="POST" class="p-4 border rounded bg-light">
+		<div class="mb-3">
+			<label for="book_id" class="form-label">Book ID:</label>
+			<input type="number" class="form-control" id="book_id" name="book_id" required>
+		</div>
+	
+		<div class="mb-3">
+			<label for="user_id" class="form-label">User ID:</label>
+			<input type="number" class="form-control" id="user_id" name="user_id" required>
+		</div>
+	
+		<div class="mb-3">
+			<label for="lost_date" class="form-label">Lost Date:</label>
+			<input type="date" class="form-control" id="lost_date" name="lost_date" required>
+		</div>
+	
+		<div class="mb-3">
+			<label for="fine_amount" class="form-label">Fine Amount:</label>
+			<input type="number" step="0.01" class="form-control" id="fine_amount" name="fine_amount" required>
+		</div>
+	
+		<div class="mb-3">
+			<label for="user_name" class="form-label">User Name:</label>
+			<input type="text" class="form-control" id="user_name" name="user_name" required>
+		</div>
+	
+		<button type="submit" class="btn btn-primary">Add Lost Book</button>
+	</form>
+	<br><br><br>
+
+
+    {% include 'footer.html' %}
+
+
+    <!-- Footer End -->
+</div>
+
+<!-- Content End -->
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+</div>
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="lib/chart/chart.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/waypoints/waypoints.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="lib/tempusdominus/js/moment.min.js"></script>
+<script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/datatables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/pdfmake.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vfs_fonts.js') }}"></script>
+<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+.calendar {
+    height: 380px; /* Adjusted height */
+    width: 350px;  /* Adjusted width */
+    background-color: white;
+    border-radius: 25px;
+    overflow: hidden;
+    padding: 20px 30px; /* Adjusted padding */
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.calendar-header {
+    background: #8089FE;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 7px;
+    align-items: center;
+    font-weight: 700;
+    color: #ffffff;
+    padding: 8px; /* Adjusted padding */
+}
+
+.calendar-body {
+    padding: 8px; /* Adjusted padding */
+}
+
+.calendar-week-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    font-weight: 600;
+    cursor: pointer;
+    color: rgb(104, 104, 104);
+    font-size: 0.9rem; /* Adjusted font size */
+}
+
+.calendar-week-days div:hover {
+    color: black;
+    transform: scale(1.1); /* Adjusted scale */
+    transition: all .2s ease-in-out;
+}
+
+.calendar-week-days div {
+    display: grid;
+    place-items: center;
+    color: #6D67CF;
+    height: 35px; /* Adjusted height */
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    color: #0A0921;
+    font-size: 0.8rem; /* Adjusted font size */
+}
+
+.calendar-days div {
+    width: 30px; /* Adjusted width */
+    height: 30px; /* Adjusted height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px; /* Adjusted padding */
+    position: relative;
+    cursor: pointer;
+    animation: to-top 1s forwards;
+}
+
+.month-picker {
+    padding: 3px 8px; /* Adjusted padding */
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.year-picker {
+    display: flex;
+    align-items: center;
+}
+
+.year-change {
+    height: 25px; /* Adjusted height */
+    width: 25px; /* Adjusted width */
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin: 0px 5px; /* Adjusted margin */
+    cursor: pointer;
+}
+
+.year-change:hover {
+    background-color: #9796f0;
+    transition: all .2s ease-in-out;
+    transform: scale(1.1); /* Adjusted scale */
+}
+
+.calendar-footer {
+    padding: 8px; /* Adjusted padding */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#year:hover {
+    cursor: pointer;
+    transform: scale(1.1); /* Adjusted scale */
+    transition: all 0.2s ease-in-out;
+}
+
+.calendar-days div span {
+    position: absolute;
+}
+
+.calendar-days div:hover {
+    transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
+    background-color: #fbc7d4;
+    border-radius: 20%;
+    color: #f8fbff;
+}
+
+.calendar-days div.current-date {
+    color: #f8fbff;
+    background-color: #9796f0;
+    border-radius: 20%;
+}
+
+.month-list {
+    position: relative;
+    left: 0;
+    top: -100px; /* Adjusted top position */
+    background-color: #ebebeb;
+    color: #151426;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 5px;
+    border-radius: 20px;
+}
+
+.month-list>div {
+    display: grid;
+    place-content: center;
+    margin: 5px 8px; /* Adjusted margin */
+    transition: all 0.2s ease-in-out;
+}
+
+.month-list>div>div {
+    border-radius: 15px;
+    padding: 8px; /* Adjusted padding */
+    cursor: pointer;
+}
+
+.month-list>div>div:hover {
+    background-color: #9796f0;
+    color: #f8fbff;
+    transform: scale(0.85); /* Adjusted scale */
+    transition: all 0.2s ease-in-out;
+}
+
+.month-list.show {
+    visibility: visible;
+    pointer-events: visible;
+    transition: 0.6s ease-in-out;
+    animation: to-left .71s forwards;
+}
+
+.month-list.hideonce {
+    visibility: hidden;
+}
+
+.month-list.hide {
+    animation: to-right 1s forwards;
+    visibility: none;
+    pointer-events: none;
+}
+
+.date-time-formate {
+    height: 3rem; /* Adjusted height */
+    width: 100%;
+    font-family: Dubai Light, Century Gothic;
+    position: relative;
+    display: flex;
+    top: 30px; /* Adjusted top position */
+    justify-content: center;
+    align-items: center;
+}
+
+.day-text-formate {
+    font-family: Microsoft JhengHei UI;
+    font-size: 1.2rem; /* Adjusted font size */
+    padding-right: 5%;
+    border-right: 2px solid #9796f0; /* Adjusted border */
+}
+
+.date-time-value {
+    display: block;
+    position: relative;
+    text-align: center;
+    padding-left: 5%;
+}
+
+.time-formate {
+    font-size: 1.3rem; /* Adjusted font size */
+}
+
+.time-formate.hideTime {
+    animation: hidetime 1.5s forwards;
+}
+
+.day-text-formate.hidetime {
+    animation: hidetime 1.5s forwards;
+}
+
+.date-formate.hideTime {
+    animation: hidetime 1.5s forwards;
+}
+
+.day-text-formate.showtime {
+    animation: showtime 1s forwards;
+}
+
+.time-formate.showtime {
+    animation: showtime 1s forwards;
+}
+
+.date-formate.showtime {
+    animation: showtime 1s forwards;
+}
+
+.today {
+    background-color: #007bff; /* Bootstrap primary color or any color you like */
+    color: white;
+    border-radius: 50%; /* Makes it a circle */
+    padding: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+@keyframes to-top {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(100%);
+        opacity: 1;
+    }
+}
+
+@keyframes to-left {
+    0% {
+        transform: translatex(230%);
+        opacity: 1;
+    }
+    100% {
+        transform: translatex(0);
+        opacity: 1;
+    }
+}
+
+@keyframes to-right {
+    10% {
+        transform: translatex(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translatex(-150%);
+        opacity: 1;
+    }
+}
+
+@keyframes showtime {
+    0% {
+        transform: translatex(250%);
+        opacity: 1;
+    }
+    100% {
+        transform: translatex(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes hidetime {
+    0% {
+        transform: translatex(0%);
+        opacity: 1;
+    }
+    100% {
+        transform: translatex(-370%);
+        opacity: 1;
+    }
+}
